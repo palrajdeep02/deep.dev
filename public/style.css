@@ -313,7 +313,10 @@ body[data-theme="light"] .theme-toggle .fa-moon { display: block; }
 .hamburger-menu { display: none; }
 .mobile-nav-menu { display: none; }
 
+/* Replace the entire @media block at the end of your CSS file */
+
 @media (max-width: 850px) {
+    /* --- Mobile Navbar --- */
     .nav-center, .nav-actions { display: none; }
     .hamburger-menu {
         display: grid;
@@ -354,6 +357,27 @@ body[data-theme="light"] .theme-toggle .fa-moon { display: block; }
     .mobile-nav-menu .theme-toggle { position: absolute; bottom: 3rem; }
     
     body { padding-top: 70px; }
-    .hero-section { margin-top: -70px; }
     .navbar { height: 70px; padding: 1rem 1.5rem; }
+    
+    /* --- Hero Section Fix --- */
+    .hero-section { 
+        margin-top: -70px;
+        padding: 0 1rem; /* Reduce side padding */
+    }
+    .hero-content h1 {
+        font-size: 3rem; /* Reduce font size for tablets */
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for small phones */
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
 }
