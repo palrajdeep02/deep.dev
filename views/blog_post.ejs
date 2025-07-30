@@ -1,0 +1,74 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<main class="container">
+    <div class="glass-card" style="max-width: 800px; margin: auto;">
+        <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>" style="width: 100%; height: auto; max-height: 400px; object-fit: cover; border-radius: 16px; margin-bottom: 2rem;">
+        
+        <h1><%= blog.title %></h1>
+        <p style="color: var(--text-secondary);">By <%= blog.author %> on <%= blog.createdAt.toDateString() %></p>
+        
+        <div style="margin: 20px 0; display: flex; align-items: center; gap: 20px;">
+            <strong>Likes: <%= blog.likes.length %></strong>
+            <% if (user) { %>
+                <form action="/blog/<%= blog._id %>/like?_method=POST" method="POST">
+                    <button type="submit" class="button">
+                        <% if (blog.likes.includes(user.id)) { %>
+                            Unlike
+                        <% } else { %>
+                            Like
+                        <% } %>
+                    </button>
+                </form>
+            <% } %>
+        </div>
+
+        <hr style="border-color: var(--border-primary);">
+
+        <div style="font-size: 1.1rem; line-height: 1.8;">
+            <%- blog.content.replace(/\n/g, '<br>') %>
+        </div>
+    </div>
+
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <% if (user) { %>
+            <form action="/blog/<%= blog._id %>/comment" method="POST" class="comment-form-card">
+                <div class="form-group">
+                    <label for="commentText">Join the discussion</label>
+                    <textarea name="text" id="commentText" rows="4" placeholder="Write your comment here..." required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="button">Comment</button>
+                </div>
+            </form>
+        <% } else { %>
+            <p><a href="/login">Login</a> to leave a comment.</p>
+        <% } %>
+
+        <div style="margin-top: 30px;">
+            <% if (blog.comments && blog.comments.length > 0) { %>
+                <% blog.comments.forEach(comment => { %>
+                    <% if (comment.author) { %>
+                        <div class="comment-card">
+                            <div class="comment-avatar">
+                                <%= comment.author.email.charAt(0).toUpperCase() %>
+                            </div>
+                            <div class="comment-body">
+                                <div class="comment-header">
+                                    <span class="comment-author"><%= comment.author.email %></span>
+                                    <span class="comment-timestamp"><%= new Date(comment.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) %></span>
+                                </div>
+                                <p class="comment-text"><%= comment.text %></p>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }) %>
+            <% } else { %>
+                <p style="text-align: center; color: var(--text-secondary); margin-top: 2rem;">No comments yet. Be the first!</p>
+            <% } %>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/_footer') %>

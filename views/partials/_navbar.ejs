@@ -1,0 +1,54 @@
+<nav class="navbar">
+  <div class="nav-logo">
+    <a href="/">
+      <div class="logo-icon">d.d</div>
+      <span class="logo-text">deep.dev</span>
+    </a>
+  </div>
+
+  <div class="nav-center">
+    <a
+      href="/"
+      class="<%= (typeof activePage !== 'undefined' && activePage === 'home') ? 'active' : '' %>"
+      >HOME</a
+    >
+    <a
+      href="/blog"
+      class="<%= (typeof activePage !== 'undefined' && activePage === 'blog') ? 'active' : '' %>"
+      >BLOG</a
+    >
+  </div>
+
+  <div class="nav-actions">
+    <button id="theme-toggle-button" class="theme-toggle" title="Toggle Theme">
+      <i class="fas fa-sun"></i>
+      <i class="fas fa-moon"></i>
+    </button>
+
+    <% if (user) { %> <% if (user.role === 'admin') { %>
+    <a
+      href="/admin/dashboard"
+      class="<%= (typeof activePage !== 'undefined' && activePage === 'admin') ? 'active' : '' %>"
+      >ADMIN</a
+    >
+    <% } %>
+    <a
+      href="/account"
+      class="<%= (typeof activePage !== 'undefined' && activePage === 'account') ? 'active' : '' %>"
+      >ACCOUNT</a
+    >
+    <a href="/logout">LOGOUT</a>
+    <% } else { %>
+    <a
+      href="/login"
+      class="<%= (typeof activePage !== 'undefined' && activePage === 'login') ? 'active' : '' %>"
+      >LOGIN</a
+    >
+    <a
+      href="/register"
+      class="<%= (typeof activePage !== 'undefined' && activePage === 'register') ? 'active' : '' %>"
+      >REGISTER</a
+    >
+    <% } %>
+  </div>
+</nav>

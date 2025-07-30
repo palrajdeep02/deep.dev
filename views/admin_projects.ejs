@@ -1,0 +1,30 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<main class="container">
+    <div class="page-header">
+        <h1>Manage Projects</h1>
+        <a href="/admin/projects/new" class="button">Add New Project</a>
+    </div>
+
+    <div class="card-container">
+        <% if(projects.length > 0) { %>
+            <% projects.forEach(project => { %>
+                <div class="glass-card">
+                    <h3 style="margin-top: 0;"><%= project.title %></h3>
+                    <p style="color: var(--text-secondary);"><%= project.description.substring(0, 100) %>...</p>
+                    <div style="margin-top: auto; padding-top: 1rem;">
+                        <a href="/admin/projects/edit/<%= project._id %>" class="button btn-edit">Edit</a>
+                        <form action="/admin/projects/delete/<%= project._id %>?_method=DELETE" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+                            <button type="submit" class="button btn-delete">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p style="color: var(--text-secondary);">No projects found.</p>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/_footer') %>

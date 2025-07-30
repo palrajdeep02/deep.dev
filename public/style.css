@@ -1,0 +1,416 @@
+/* =================================
+   THEME VARIABLES
+   ================================= */
+:root {
+    /* Default to Dark Theme */
+    --bg-primary: #0f0f23;
+    --bg-gradient: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    --bg-glass: rgba(30, 30, 50, 0.25);
+    --bg-glass-hover: rgba(45, 45, 65, 0.35);
+    --text-primary: #ffffff;
+    --text-secondary: #a8b3cf;
+    --border-primary: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(255, 255, 255, 0.2);
+    --accent-primary: #ff6b35;
+    --accent-hover: #ff5722;
+    --accent-gradient: linear-gradient(135deg, #ff6b35, #f97316);
+    --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+    --bg-primary: #f4f4f5;
+    --bg-gradient: linear-gradient(135deg, #ffffff 0%, #e9ecef 100%);
+    --bg-glass: rgba(255, 255, 255, 0.5);
+    --bg-glass-hover: rgba(255, 255, 255, 0.7);
+    --text-primary: #18181b;
+    --text-secondary: #52525b;
+    --border-primary: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(0, 0, 0, 0.15);
+}
+
+/* =================================
+   GLOBAL STYLES
+   ================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.7;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    padding-top: 100px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* =================================
+   NAVIGATION BAR
+   ================================= */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2.5rem; /* Increased padding */
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-primary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-logo {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+/* Find and replace the .nav-logo a rule with these styles */
+
+.nav-logo a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-gradient);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+}
+
+.logo-text {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+/* This new section centers the main links */
+.nav-center {
+    flex-grow: 1; /* Takes up the available space */
+    text-align: center; /* Centers the text inside */
+}
+
+.nav-center a {
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 0 1.5rem; /* Adds space between HOME and BLOG */
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+}
+
+.nav-center a::after, .nav-actions a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gradient);
+    transition: width 0.3s ease;
+}
+
+.nav-center a:hover, .nav-actions a:hover {
+    color: var(--text-primary);
+}
+.nav-center a:hover::after, .nav-actions a:hover::after {
+    width: 100%;
+}
+.nav-center a.active, .nav-actions a.active {
+    color: var(--text-primary);
+}
+.nav-center a.active::after, .nav-actions a.active::after {
+    width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-actions a {
+    font-weight: 500;
+    color: var(--text-secondary);
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+/* =================================
+   HERO SECTION
+   ================================= */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+    margin-top: -100px;
+    background-size: cover;
+    background-position: center;
+}
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    color: white; /* Hero text should always be white for readability on images */
+}
+.hero-content h1 { font-size: 4.5rem; color: white; }
+.hero-content p { font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); }
+
+/* =================================
+   BUTTONS & CARDS
+   ================================= */
+.button, button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    background: var(--accent-gradient);
+    color: white; /* Button text is always white */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: var(--shadow-primary);
+}
+.button:hover, button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+}
+
+.glass-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid var(--border-primary);
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+.glass-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-hover);
+}
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* =================================
+   FORMS
+   ================================= */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+.form-card { max-width: 500px; }
+.form-card h1 { text-align: center; }
+
+input[type="text"], input[type="password"], input[type="email"], textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-primary);
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+textarea { resize: vertical; min-height: 120px; }
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+/* =================================
+   ADMIN & COMMENT STYLES
+   ================================= */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-primary);
+}
+.page-header h1 { margin: 0; }
+
+.comment-author { font-weight: 600; color: var(--text-primary); }
+.comment-timestamp, .comment-text { color: var(--text-secondary); }
+
+/* =================================
+   THEME TOGGLE ICON
+   ================================= */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-glass-hover);
+}
+
+/* Hide the moon icon by default (in dark mode) */
+.theme-toggle .fa-moon {
+    display: none;
+}
+/* Show the sun icon by default (in dark mode) */
+.theme-toggle .fa-sun {
+    display: block;
+}
+
+/* When in light mode, hide the sun and show the moon */
+[data-theme="light"] .theme-toggle .fa-moon {
+    display: block;
+}
+[data-theme="light"] .theme-toggle .fa-sun {
+    display: none;
+}
+
+/* Admin List Button Specifics - Ensuring consistent sizing */
+
+.admin-list-card-footer form {
+    margin-bottom: 0; /* Removes default form margins */
+}
+
+.admin-list-card-footer .button {
+    /* Ensures both <a> and <button> behave the same */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.button.btn-edit, .button.btn-delete {
+    /* Adjust width and height for a pill shape */
+    min-width: 60px; /* Ensure a minimum width for the text/icon */
+    height: 30px; /* Adjust height as needed */
+    padding: 0 15px; /* Add horizontal padding for the pill shape */
+    border-radius: 999px; /* Creates the pill shape */
+    background: var(--accent-gradient); /* Use the main orange gradient */
+    color: white; /* Ensure text/icon is white */
+    border: none; /* Remove any borders */
+    display: inline-flex; /* Use flex to center content */
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem; /* Adjust font size if needed */
+    text-decoration: none; /* In case they are links */
+}
+
+/* In public/style.css */
+.button.google-button {
+    background: #db4437;
+    /* You might want to override other button styles here if needed */
+}
+.button.google-button:hover {
+    filter: brightness(1.2); /* Adjust hover effect */
+}
+
+/* =================================
+   FOOTER
+   ================================= */
+.site-footer {
+    padding: 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--border-primary);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-socials a {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: var(--text-primary);
+    transform: translateY(-3px);
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}

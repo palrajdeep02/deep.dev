@@ -1,0 +1,54 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<div class="hero-section" style="background-image: url('http://googleusercontent.com/file_content/0');">
+    <div class="hero-content">
+        <h1>Web Design & Development</h1>
+        <p>A complete journey from novice to expert. Learn to create stunning, modern websites with us.</p>
+        <a href="#main-content" class="button">View My Work</a>
+    </div>
+</div>
+
+<div id="main-content">
+    <div class="container" style="padding-top: 80px;">
+        <h2 style="text-align: center;">Recent Posts</h2>
+        <div class="card-container">
+            <% blogs.forEach(blog => { %>
+                <div class="glass-card">
+                    <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>" style="width: 100%; height: 200px; object-fit: cover; border-radius: 16px;">
+                    <div style="padding-top: 1.5rem;">
+                        <h3><a href="/blog/<%= blog._id %>"><%= blog.title %></a></h3>
+                        <p style="color: var(--text-muted);"><%= blog.content.substring(0, 100) %>...</p>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+
+        <hr style="border-color: var(--border-color); margin: 3rem 0;">
+
+        <h2 style="text-align: center;">Featured Projects</h2>
+        <div class="card-container">
+            <% projects.forEach(project => { %>
+                <div class="glass-card">
+                    <h3><%= project.title %></h3>
+                    <p style="color: var(--text-muted);"><%= project.description %></p>
+                    <a href="<%= project.projectUrl %>" class="button" style="margin-top: 1rem;">View Project</a>
+                </div>
+            <% }) %>
+        </div>
+        
+        <hr style="border-color: var(--border-color); margin: 3rem 0;">
+
+        <h2 style="text-align: center;">My Skills</h2>
+        <div class="card-container">
+            <% skills.forEach(skill => { %>
+                <div class="glass-card" style="text-align: center;">
+                    <h3><%= skill.name %></h3>
+                    <p style="color: var(--text-muted);"><%= skill.level %> - <%= skill.category %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/_footer') %>

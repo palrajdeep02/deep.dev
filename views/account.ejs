@@ -1,0 +1,37 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<main class="container">
+    <div class="page-header">
+        <h1>Welcome, <%= user.firstName %></h1>
+    </div>
+
+    <div class="admin-grid">
+        <div class="glass-card">
+            <h3>Profile Details</h3>
+            <form action="/account/update-profile" method="POST">
+                <div style="display: flex; gap: 1rem;">
+                    <input type="text" name="firstName" value="<%= user.firstName %>" required>
+                    <input type="text" name="lastName" value="<%= user.lastName %>" required>
+                </div>
+                <input type="text" name="username" value="<%= user.username %>" required>
+                <input type="email" name="email" value="<%= user.email %>" required>
+                <input type="text" name="mobileNumber" value="<%= user.mobileNumber || '' %>" placeholder="Optional: Mobile Number">
+                <button type="submit" class="button">Update Profile</button>
+            </form>
+        </div>
+
+        <% if (!user.googleId) { %>
+        <div class="glass-card">
+            <h3>Change Password</h3>
+            <form action="/account/change-password" method="POST">
+                <input type="password" name="currentPassword" placeholder="Current Password" required>
+                <input type="password" name="newPassword" placeholder="New Password" required>
+                <button type="submit" class="button">Change Password</button>
+            </form>
+        </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/_footer') %>

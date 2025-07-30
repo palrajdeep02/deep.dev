@@ -1,0 +1,25 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<div class="form-container">
+    <div class="form-card">
+        <h1>Edit Skill</h1>
+        <form action="/admin/skills/edit/<%= skill._id %>?_method=PUT" method="POST">
+            <div>
+                <label for="name">Skill Name</label>
+                <input type="text" id="name" name="name" value="<%= skill.name %>" required>
+            </div>
+            <div>
+                <label for="level">Level</label>
+                <input type="text" id="level" name="level" value="<%= skill.level %>" required>
+            </div>
+            <div>
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" value="<%= skill.category %>" required>
+            </div>
+            <button type="submit" class="button">Update Skill</button>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/_footer') %>

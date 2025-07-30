@@ -1,0 +1,31 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<main class="container">
+    <div class="page-header">
+        <h1>Manage Skills</h1>
+        <a href="/admin/skills/new" class="button">Add New Skill</a>
+    </div>
+
+    <div class="card-container">
+        <% if(skills.length > 0) { %>
+            <% skills.forEach(skill => { %>
+                <div class="glass-card">
+                    <h3 style="margin-top: 0;"><%= skill.name %></h3>
+                    <p style="color: var(--text-secondary);"><strong>Category:</strong> <%= skill.category %></p>
+                    <p style="color: var(--text-secondary);"><strong>Level:</strong> <%= skill.level %></p>
+                    <div style="margin-top: auto; padding-top: 1rem;">
+                        <a href="/admin/skills/edit/<%= skill._id %>" class="button btn-edit">Edit</a>
+                        <form action="/admin/skills/delete/<%= skill._id %>?_method=DELETE" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+                            <button type="submit" class="button btn-delete">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p style="color: var(--text-secondary);">No skills found.</p>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/_footer') %>

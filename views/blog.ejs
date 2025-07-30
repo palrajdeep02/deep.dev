@@ -1,0 +1,21 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<main class="container">
+    <h1 style="text-align: center; font-size: 3rem; margin-bottom: 2rem;">The deep.dev Blog</h1>
+    
+    <div class="card-container">
+        <% blogs.forEach(blog => { %>
+            <div class="glass-card" style="display: flex; flex-direction: column;">
+                <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>" style="width: 100%; height: 200px; object-fit: cover; border-radius: 16px;">
+                <div style="padding-top: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><%= blog.title %></h3>
+                    <p style="color: var(--text-muted); flex-grow: 1;"><%= blog.content.substring(0, 100) %>...</p>
+                    <a href="/blog/<%= blog._id %>" class="button" style="margin-top: 1rem;">Read More</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</main>
+
+<%- include('partials/_footer') %>

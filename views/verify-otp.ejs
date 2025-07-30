@@ -1,0 +1,23 @@
+<%- include('partials/_header') %>
+<%- include('partials/_navbar') %>
+
+<div class="form-container">
+    <div class="form-card">
+        <h1>Verify Your Email</h1>
+        <p style="text-align: center; color: var(--text-secondary);">
+            An OTP has been sent to <strong><%= email %></strong>. Please enter it below.
+        </p>
+        
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p style="color: #dc3545; text-align: center;"><%= error %></p>
+        <% } %>
+
+        <form action="/verify-otp" method="POST">
+            <input type="hidden" name="email" value="<%= email %>">
+            <input type="text" name="otp" placeholder="Enter OTP" required>
+            <button type="submit" class="button">Verify</button>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/_footer') %>
