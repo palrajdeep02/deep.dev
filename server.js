@@ -88,7 +88,10 @@ passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, p
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/auth/google/callback"
+    // Dynamically set callbackURL based on environment
+    callbackURL: process.env.NODE_ENV === 'production' && process.env.RENDER_EXTERNAL_URL
+        ? `${process.env.RENDER_EXTERNAL_URL}/auth/google/callback`
+        : "http://localhost:3000/auth/google/callback" // Ensure this matches your local port
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
