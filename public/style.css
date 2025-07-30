@@ -15,6 +15,7 @@
     --accent-hover: #ff5722;
     --accent-gradient: linear-gradient(135deg, #ff6b35, #f97316);
     --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="light"] {
@@ -27,6 +28,7 @@
     --border-primary: rgba(0, 0, 0, 0.1);
     --border-hover: rgba(0, 0, 0, 0.15);
     --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* =================================
@@ -58,15 +60,6 @@ h1, h2, h3 {
     font-weight: 600;
     margin-bottom: 1rem;
     color: var(--text-primary);
-}
-
-a {
-    color: var(--accent-primary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-a:hover {
-    color: var(--accent-hover);
 }
 
 /* =================================
@@ -112,41 +105,23 @@ a:hover {
 }
 
 .nav-center {
-    flex-grow: 1;
     text-align: center;
 }
-.nav-center a {
+.nav-center a, .nav-actions a {
     font-weight: 500;
     color: var(--text-secondary);
-    margin: 0 1.5rem;
     position: relative;
     padding: 0.5rem 0;
-}
-.nav-center a::after, .nav-actions a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent-gradient);
-    transition: width 0.3s ease;
+    margin: 0 1.5rem;
+    text-decoration: none;
 }
 .nav-center a:hover, .nav-actions a:hover { color: var(--text-primary); }
-.nav-center a:hover::after, .nav-actions a:hover::after { width: 100%; }
 .nav-center a.active, .nav-actions a.active { color: var(--text-primary); }
-.nav-center a.active::after, .nav-actions a.active::after { width: 100%; }
 
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-}
-.nav-actions a {
-    font-weight: 500;
-    color: var(--text-secondary);
-    position: relative;
-    padding: 0.5rem 0;
 }
 
 /* =================================
@@ -270,49 +245,27 @@ input:focus, textarea:focus {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 1.5rem;
 }
-.admin-list-card {
+.admin-list-card-footer {
     display: flex;
-    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: auto;
 }
-.admin-list-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-primary);
-}
-.admin-list-card-header h3 { margin: 0; font-size: 1.25rem; }
-.admin-list-card-header .meta { font-size: 0.85rem; color: var(--text-secondary); }
-.admin-list-card-body { flex-grow: 1; padding: 1rem 0; color: var(--text-secondary); }
-.admin-list-card-footer { display: flex; gap: 0.5rem; margin-top: auto; }
 .admin-list-card-footer form { margin: 0; }
 .admin-list-card-footer .button {
     border-radius: 999px;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    background: var(--accent-gradient);
-    color: white;
-    border: none;
+    background: var(--bg-glass-hover);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+}
+.admin-list-card-footer .button:hover {
+    color: var(--text-primary);
+    border-color: var(--border-hover);
 }
 
 .comments-section { max-width: 800px; margin: 40px auto; }
 .comment-card { display: flex; gap: 1.5rem; }
-.comment-avatar {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--accent-gradient);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: white;
-}
-.comment-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
-.comment-author { font-weight: 600; color: var(--text-primary); }
-.comment-timestamp, .comment-text { color: var(--text-secondary); }
 .comment-form-card .form-group label { display: block; margin-bottom: 0.75rem; font-weight: 600; }
 .form-actions { display: flex; justify-content: flex-end; }
 
@@ -325,7 +278,6 @@ input:focus, textarea:focus {
     align-items: center;
     text-align: center;
     padding: 1.5rem;
-    transition: all 0.3s ease !important;
 }
 .skill-card h3 { margin: 0; font-size: 1.1rem; }
 .skill-card[data-skill-name="java"] { background: #f89820; color: white; }
