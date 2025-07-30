@@ -20,12 +20,13 @@
 [data-theme="light"] {
     --bg-primary: #f4f4f5;
     --bg-gradient: linear-gradient(135deg, #ffffff 0%, #e9ecef 100%);
-    --bg-glass: rgba(255, 255, 255, 0.5);
-    --bg-glass-hover: rgba(255, 255, 255, 0.7);
+    --bg-glass: rgba(255, 255, 255, 0.6);
+    --bg-glass-hover: rgba(255, 255, 255, 0.8);
     --text-primary: #18181b;
     --text-secondary: #52525b;
     --border-primary: rgba(0, 0, 0, 0.1);
     --border-hover: rgba(0, 0, 0, 0.15);
+    --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* =================================
@@ -43,8 +44,8 @@ body {
     background: var(--bg-gradient);
     background-attachment: fixed;
     color: var(--text-primary);
-    padding-top: 100px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 80px;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -58,9 +59,6 @@ h1, h2, h3 {
     margin-bottom: 1rem;
     color: var(--text-primary);
 }
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
 
 a {
     color: var(--accent-primary);
@@ -77,23 +75,17 @@ a:hover {
 .navbar {
     display: flex;
     align-items: center;
-    padding: 1rem 2.5rem; /* Increased padding */
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
     position: fixed;
     top: 0; left: 0; right: 0;
+    height: 80px;
     z-index: 100;
     background: var(--bg-glass);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-primary);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
-.nav-logo {
-    font-size: 1.75rem;
-    font-weight: 700;
-}
-
-/* Find and replace the .nav-logo a rule with these styles */
 
 .nav-logo a {
     display: flex;
@@ -101,7 +93,6 @@ a:hover {
     gap: 0.75rem;
     text-decoration: none;
 }
-
 .logo-icon {
     width: 40px;
     height: 40px;
@@ -114,28 +105,23 @@ a:hover {
     font-size: 1rem;
     color: white;
 }
-
 .logo-text {
     font-weight: 600;
     font-size: 1.5rem;
     color: var(--text-primary);
 }
 
-/* This new section centers the main links */
 .nav-center {
-    flex-grow: 1; /* Takes up the available space */
-    text-align: center; /* Centers the text inside */
+    flex-grow: 1;
+    text-align: center;
 }
-
 .nav-center a {
     font-weight: 500;
     color: var(--text-secondary);
-    margin: 0 1.5rem; /* Adds space between HOME and BLOG */
+    margin: 0 1.5rem;
     position: relative;
     padding: 0.5rem 0;
-    transition: color 0.3s ease;
 }
-
 .nav-center a::after, .nav-actions a::after {
     content: '';
     position: absolute;
@@ -146,26 +132,16 @@ a:hover {
     background: var(--accent-gradient);
     transition: width 0.3s ease;
 }
-
-.nav-center a:hover, .nav-actions a:hover {
-    color: var(--text-primary);
-}
-.nav-center a:hover::after, .nav-actions a:hover::after {
-    width: 100%;
-}
-.nav-center a.active, .nav-actions a.active {
-    color: var(--text-primary);
-}
-.nav-center a.active::after, .nav-actions a.active::after {
-    width: 100%;
-}
+.nav-center a:hover, .nav-actions a:hover { color: var(--text-primary); }
+.nav-center a:hover::after, .nav-actions a:hover::after { width: 100%; }
+.nav-center a.active, .nav-actions a.active { color: var(--text-primary); }
+.nav-center a.active::after, .nav-actions a.active::after { width: 100%; }
 
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 1.5rem;
 }
-
 .nav-actions a {
     font-weight: 500;
     color: var(--text-secondary);
@@ -184,7 +160,7 @@ a:hover {
     justify-content: center;
     text-align: center;
     padding: 0 2rem;
-    margin-top: -100px;
+    margin-top: -80px;
     background-size: cover;
     background-position: center;
 }
@@ -199,7 +175,7 @@ a:hover {
     position: relative;
     z-index: 2;
     max-width: 700px;
-    color: white; /* Hero text should always be white for readability on images */
+    color: white;
 }
 .hero-content h1 { font-size: 4.5rem; color: white; }
 .hero-content p { font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); }
@@ -208,11 +184,13 @@ a:hover {
    BUTTONS & CARDS
    ================================= */
 .button, button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 0.8rem 1.5rem;
     border-radius: 12px;
     background: var(--accent-gradient);
-    color: white; /* Button text is always white */
+    color: white;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -221,6 +199,7 @@ a:hover {
 }
 .button:hover, button:hover {
     transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
     filter: brightness(1.1);
 }
 
@@ -252,10 +231,10 @@ a:hover {
     align-items: center;
     padding: 2rem 0;
 }
-.form-card { max-width: 500px; }
+.form-card { max-width: 500px; width: 100%; }
 .form-card h1 { text-align: center; }
 
-input[type="text"], input[type="password"], input[type="email"], textarea {
+input, textarea {
     width: 100%;
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -286,11 +265,79 @@ input:focus, textarea:focus {
 }
 .page-header h1 { margin: 0; }
 
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+.admin-list-card {
+    display: flex;
+    flex-direction: column;
+}
+.admin-list-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-primary);
+}
+.admin-list-card-header h3 { margin: 0; font-size: 1.25rem; }
+.admin-list-card-header .meta { font-size: 0.85rem; color: var(--text-secondary); }
+.admin-list-card-body { flex-grow: 1; padding: 1rem 0; color: var(--text-secondary); }
+.admin-list-card-footer { display: flex; gap: 0.5rem; margin-top: auto; }
+.admin-list-card-footer form { margin: 0; }
+.admin-list-card-footer .button {
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+}
+
+.comments-section { max-width: 800px; margin: 40px auto; }
+.comment-card { display: flex; gap: 1.5rem; }
+.comment-avatar {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+}
+.comment-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
 .comment-author { font-weight: 600; color: var(--text-primary); }
 .comment-timestamp, .comment-text { color: var(--text-secondary); }
+.comment-form-card .form-group label { display: block; margin-bottom: 0.75rem; font-weight: 600; }
+.form-actions { display: flex; justify-content: flex-end; }
 
 /* =================================
-   THEME TOGGLE ICON
+   COLORFUL SKILL CARDS
+   ================================= */
+.skill-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    transition: all 0.3s ease !important;
+}
+.skill-card h3 { margin: 0; font-size: 1.1rem; }
+.skill-card[data-skill-name="java"] { background: #f89820; color: white; }
+.skill-card[data-skill-name="python"] { background: #3776ab; color: white; }
+.skill-card[data-skill-name="machine-learning"] { background: #8e44ad; color: white; }
+.skill-card[data-skill-name="artificial-intelligence"] { background: #2980b9; color: white; }
+.skill-card[data-skill-name="web-development"] { background: #e67e22; color: white; }
+.skill-card[data-skill-name="react"] { background: #61dafb; color: #000; }
+.skill-card[data-skill-name="node"] { background: #339933; color: white; }
+
+/* =================================
+   THEME TOGGLE & RESPONSIVE NAV
    ================================= */
 .theme-toggle {
     background: none;
@@ -302,115 +349,55 @@ input:focus, textarea:focus {
     border-radius: 8px;
     transition: color 0.3s ease, background-color 0.3s ease;
 }
-
 .theme-toggle:hover {
     color: var(--text-primary);
     background-color: var(--bg-glass-hover);
 }
 
-/* Hide the moon icon by default (in dark mode) */
-.theme-toggle .fa-moon {
-    display: none;
-}
-/* Show the sun icon by default (in dark mode) */
-.theme-toggle .fa-sun {
-    display: block;
-}
+.hamburger-menu { display: none; }
+.mobile-nav-menu { display: none; }
 
-/* When in light mode, hide the sun and show the moon */
-[data-theme="light"] .theme-toggle .fa-moon {
-    display: block;
-}
-[data-theme="light"] .theme-toggle .fa-sun {
-    display: none;
-}
+@media (max-width: 850px) {
+    .nav-center, .nav-actions { display: none; }
+    .hamburger-menu {
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        background: none;
+        border: 1px solid var(--border-primary);
+        border-radius: 12px;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    .hamburger-menu .fa-times { display: none; }
+    .hamburger-menu .fa-bars { display: block; }
+    .hamburger-menu.is-active .fa-times { display: block; }
+    .hamburger-menu.is-active .fa-bars { display: none; }
 
-/* Admin List Button Specifics - Ensuring consistent sizing */
-
-.admin-list-card-footer form {
-    margin-bottom: 0; /* Removes default form margins */
-}
-
-.admin-list-card-footer .button {
-    /* Ensures both <a> and <button> behave the same */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap; /* Prevents text from wrapping */
-}
-
-.button.btn-edit, .button.btn-delete {
-    /* Adjust width and height for a pill shape */
-    min-width: 60px; /* Ensure a minimum width for the text/icon */
-    height: 30px; /* Adjust height as needed */
-    padding: 0 15px; /* Add horizontal padding for the pill shape */
-    border-radius: 999px; /* Creates the pill shape */
-    background: var(--accent-gradient); /* Use the main orange gradient */
-    color: white; /* Ensure text/icon is white */
-    border: none; /* Remove any borders */
-    display: inline-flex; /* Use flex to center content */
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem; /* Adjust font size if needed */
-    text-decoration: none; /* In case they are links */
-}
-
-/* In public/style.css */
-.button.google-button {
-    background: #db4437;
-    /* You might want to override other button styles here if needed */
-}
-.button.google-button:hover {
-    filter: brightness(1.2); /* Adjust hover effect */
-}
-
-/* =================================
-   FOOTER
-   ================================= */
-.site-footer {
-    padding: 2rem;
-    margin-top: 3rem;
-    border-top: 1px solid var(--border-primary);
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-socials {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.footer-socials a {
-    color: var(--text-secondary);
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.footer-socials a:hover {
-    color: var(--text-primary);
-    transform: translateY(-3px);
-}
-
-.footer-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.footer-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-}
-
-.footer-links a:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
+    .mobile-nav-menu {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: var(--bg-primary);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(1.1);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .mobile-nav-menu.is-open { opacity: 1; pointer-events: all; transform: scale(1); }
+    .mobile-nav-menu a { font-size: 1.8rem; font-weight: 600; color: var(--text-secondary); }
+    .mobile-nav-menu a:hover { color: var(--text-primary); }
+    .mobile-nav-menu .theme-toggle { position: absolute; bottom: 3rem; }
+    
+    body { padding-top: 70px; }
+    .hero-section { margin-top: -70px; }
+    .navbar { height: 70px; padding: 1rem 1.5rem; }
 }

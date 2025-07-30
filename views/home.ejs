@@ -1,7 +1,7 @@
 <%- include('partials/_header') %>
 <%- include('partials/_navbar') %>
 
-<div class="hero-section" style="background-image: url('http://googleusercontent.com/file_content/0');">
+<div class="hero-section" style="background-image: url('http://googleusercontent.com/file_content/3');">
     <div class="hero-content">
         <h1>Web Design & Development</h1>
         <p>A complete journey from novice to expert. Learn to create stunning, modern websites with us.</p>
@@ -18,33 +18,32 @@
                     <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>" style="width: 100%; height: 200px; object-fit: cover; border-radius: 16px;">
                     <div style="padding-top: 1.5rem;">
                         <h3><a href="/blog/<%= blog._id %>"><%= blog.title %></a></h3>
-                        <p style="color: var(--text-muted);"><%= blog.content.substring(0, 100) %>...</p>
+                        <p style="color: var(--text-secondary);"><%= blog.content.substring(0, 100) %>...</p>
                     </div>
                 </div>
             <% }) %>
         </div>
 
-        <hr style="border-color: var(--border-color); margin: 3rem 0;">
+        <hr style="border-color: var(--border-primary); margin: 3rem 0;">
 
         <h2 style="text-align: center;">Featured Projects</h2>
         <div class="card-container">
             <% projects.forEach(project => { %>
                 <div class="glass-card">
                     <h3><%= project.title %></h3>
-                    <p style="color: var(--text-muted);"><%= project.description %></p>
+                    <p style="color: var(--text-secondary);"><%= project.description %></p>
                     <a href="<%= project.projectUrl %>" class="button" style="margin-top: 1rem;">View Project</a>
                 </div>
             <% }) %>
         </div>
         
-        <hr style="border-color: var(--border-color); margin: 3rem 0;">
+        <hr style="border-color: var(--border-primary); margin: 3rem 0;">
 
         <h2 style="text-align: center;">My Skills</h2>
         <div class="card-container">
             <% skills.forEach(skill => { %>
-                <div class="glass-card" style="text-align: center;">
+                <div class="glass-card skill-card" data-skill-name="<%= skill.name.toLowerCase().replace(/\s+/g, '-') %>">
                     <h3><%= skill.name %></h3>
-                    <p style="color: var(--text-muted);"><%= skill.level %> - <%= skill.category %></p>
                 </div>
             <% }) %>
         </div>
