@@ -207,8 +207,7 @@ a:hover {
 /* =================================
    FORMS
    ================================= */
-
-   .form-container {
+.form-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,7 +216,7 @@ a:hover {
 .form-card { max-width: 500px; width: 100%; }
 .form-card h1 { text-align: center; }
 
-input, textarea {
+input[type="text"], input[type="password"], input[type="email"], textarea {
     width: 100%;
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -263,12 +262,34 @@ input:focus, textarea:focus {
     border-radius: 999px;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
 }
 
 .comments-section { max-width: 800px; margin: 40px auto; }
 .comment-card { display: flex; gap: 1.5rem; }
 .comment-form-card .form-group label { display: block; margin-bottom: 0.75rem; font-weight: 600; }
 .form-actions { display: flex; justify-content: flex-end; }
+
+/* =================================
+   FLASH MESSAGES
+   ================================= */
+.flash-error {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    background-color: rgba(220, 53, 69, 0.2);
+    border: 1px solid rgba(220, 53, 69, 0.5);
+    color: #f8d7da;
+}
+[data-theme="light"] .flash-error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
 
 /* =================================
    COLORFUL SKILL CARDS
@@ -308,16 +329,13 @@ input:focus, textarea:focus {
 }
 body:not([data-theme="light"]) .theme-toggle .fa-sun { display: block; }
 body:not([data-theme="light"]) .theme-toggle .fa-moon { display: none; }
-body[data-theme="light"] .theme-toggle .fa-sun { display: none; }
-body[data-theme="light"] .theme-toggle .fa-moon { display: block; }
+[data-theme="light"] .theme-toggle .fa-sun { display: none; }
+[data-theme="light"] .theme-toggle .fa-moon { display: block; }
 
 .hamburger-menu { display: none; }
 .mobile-nav-menu { display: none; }
 
-/* Replace the entire @media block at the end of your CSS file */
-
 @media (max-width: 850px) {
-    /* --- Mobile Navbar --- */
     .nav-center, .nav-actions { display: none; }
     .hamburger-menu {
         display: grid;
@@ -359,45 +377,98 @@ body[data-theme="light"] .theme-toggle .fa-moon { display: block; }
     
     body { padding-top: 70px; }
     .navbar { height: 70px; padding: 1rem 1.5rem; }
-    
-    /* --- Hero Section Fix --- */
+
     .hero-section { 
         margin-top: -70px;
-        padding: 0 1rem; /* Reduce side padding */
+        padding: 0 1rem;
     }
     .hero-content h1 {
-        font-size: 3rem; /* Reduce font size for tablets */
+        font-size: 3rem;
     }
     .hero-content p {
         font-size: 1.1rem;
     }
+
+    .footer-content, .footer-links {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) {
-    /* Further adjustments for small phones */
     .hero-content h1 {
         font-size: 2.2rem;
     }
     .hero-content p {
         font-size: 1rem;
     }
-}
-
-@media (max-width: 480px) {
     .form-card {
-        padding: 2rem; /* Reduces the padding inside the card */
-        margin: 1rem;  /* Adds some space around the card */
+        padding: 2rem;
+        margin: 1rem;
     }
-
     .form-card h1 {
-        font-size: 1.8rem; /* Makes the title smaller */
+        font-size: 1.8rem;
     }
 }
 
+/* =================================
+   FOOTER
+   ================================= */
+.site-footer {
+    padding: 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--border-primary);
+    transition: border-color 0.3s ease;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-socials a {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: var(--text-primary);
+    transform: translateY(-3px);
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+/* Responsive styles are located inside the @media (max-width: 768px) block */
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
-        align-items: center; /* This line centers the items */
+        align-items: center;
         gap: 1.5rem;
     }
 
