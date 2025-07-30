@@ -61,8 +61,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // --- Local Strategy (Username or Email) ---
-// server.js -> inside the PASSPORT.JS CONFIGURATION section
-
 passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
   try {
     const loginIdentifier = username.toLowerCase();
@@ -70,22 +68,16 @@ passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, p
         $or: [{ email: loginIdentifier }, { username: loginIdentifier }] 
     });
 
-    // Case 1: User not found
     if (!user) {
         return done(null, false, { message: 'No user found with that email or username.' });
     }
-
     if (!user.password) {
         return done(null, false, { message: 'Please log in with Google.' });
     }
-
-    // Case 2: Password does not match
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
         return done(null, false, { message: 'Password incorrect.' });
     }
-
-    // Success
     return done(null, user);
   } catch (err) {
     return done(err);
@@ -157,7 +149,7 @@ function isAdmin(req, res, next) {
 // --- Public Routes ---
 app.get('/', async (req, res) => {
     const projects = await Project.find({}).sort({ _id: -1 }).limit(3);
-    const skills = await Skill.find({}).limit(6);
+    const skills = await Skill.find({});
     const blogs = await Blog.find({}).sort({ createdAt: -1 }).limit(3);
     res.render('home', { projects, skills, blogs, user: req.user, activePage: 'home' });
 });
@@ -176,7 +168,6 @@ app.get('/blog/:id', async (req, res) => {
     if (!blog) return res.status(404).send('Blog post not found.');
     res.render('blog_post', { blog, user: req.user, activePage: 'blog' });
 });
-
 
 // --- Like and Comment Routes ---
 app.post('/blog/:id/like', isAuthenticated, async (req, res) => {
@@ -272,6 +263,7 @@ app.get('/admin/dashboard', isAuthenticated, isAdmin, async (req, res) => {
     const skillCount = await Skill.countDocuments();
     res.render('admin_dashboard', { user: req.user, blogCount, projectCount, skillCount, activePage: 'admin' });
 });
+// Blog Management
 app.get('/admin/blogs', isAuthenticated, isAdmin, async (req, res) => {
     const blogs = await Blog.find({});
     res.render('admin_blogs', { blogs, user: req.user, activePage: 'admin' });
@@ -279,7 +271,96 @@ app.get('/admin/blogs', isAuthenticated, isAdmin, async (req, res) => {
 app.get('/admin/blogs/new', isAuthenticated, isAdmin, (req, res) => {
     res.render('admin_blogs_new', { user: req.user, activePage: 'admin' });
 });
-// ... (keep all POST, PUT, DELETE admin routes)
+app.post('/admin/blogs', isAuthenticated, isAdmin, async (req, res) => {
+    const newBlog = new Blog({
+        title: req.body.title,
+        imageUrl: req.body.imageUrl,
+        content: req.body.content,
+        author: req.user.email
+    });
+    await newBlog.save();
+    res.redirect('/admin/blogs');
+});
+app.get('/admin/blogs/edit/:id', isAuthenticated, isAdmin, async (req, res) => {
+    const blog = await Blog.findById(req.params.id);
+    res.render('admin_blogs_edit', { blog, user: req.user, activePage: 'admin' });
+});
+app.put('/admin/blogs/edit/:id', isAuthenticated, isAdmin, async (req, res) => {
+    await Blog.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        imageUrl: req.body.imageUrl,
+        content: req.body.content
+    });
+    res.redirect('/admin/blogs');
+});
+app.delete('/admin/blogs/delete/:id', isAuthenticated, isAdmin, async (req, res) => {
+    await Blog.findByIdAndDelete(req.params.id);
+    res.redirect('/admin/blogs');
+});
+// Project Management
+app.get('/admin/projects', isAuthenticated, isAdmin, async (req, res) => {
+    const projects = await Project.find({});
+    res.render('admin_projects', { projects, user: req.user, activePage: 'admin' });
+});
+app.get('/admin/projects/new', isAuthenticated, isAdmin, (req, res) => {
+    res.render('admin_projects_new', { user: req.user, activePage: 'admin' });
+});
+app.post('/admin/projects', isAuthenticated, isAdmin, async (req, res) => {
+    const technologies = req.body.technologies.split(',').map(tech => tech.trim());
+    const newProject = new Project({
+        title: req.body.title,
+        description: req.body.description,
+        imageUrl: req.body.imageUrl,
+        projectUrl: req.body.projectUrl,
+        technologies: technologies
+    });
+    await newProject.save();
+    res.redirect('/admin/projects');
+});
+app.get('/admin/projects/edit/:id', isAuthenticated, isAdmin, async (req, res) => {
+    const project = await Project.findById(req.params.id);
+    res.render('admin_projects_edit', { project, user: req.user, activePage: 'admin' });
+});
+app.put('/admin/projects/edit/:id', isAuthenticated, isAdmin, async (req, res) => {
+    const technologies = req.body.technologies.split(',').map(tech => tech.trim());
+    await Project.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        description: req.body.description,
+        imageUrl: req.body.imageUrl,
+        projectUrl: req.body.projectUrl,
+        technologies: technologies
+    });
+    res.redirect('/admin/projects');
+});
+app.delete('/admin/projects/delete/:id', isAuthenticated, isAdmin, async (req, res) => {
+    await Project.findByIdAndDelete(req.params.id);
+    res.redirect('/admin/projects');
+});
+// Skill Management
+app.get('/admin/skills', isAuthenticated, isAdmin, async (req, res) => {
+    const skills = await Skill.find({});
+    res.render('admin_skills', { skills, user: req.user, activePage: 'admin' });
+});
+app.get('/admin/skills/new', isAuthenticated, isAdmin, (req, res) => {
+    res.render('admin_skills_new', { user: req.user, activePage: 'admin' });
+});
+app.post('/admin/skills', isAuthenticated, isAdmin, async (req, res) => {
+    const newSkill = new Skill({ name: req.body.name, level: req.body.level, category: req.body.category });
+    await newSkill.save();
+    res.redirect('/admin/skills');
+});
+app.get('/admin/skills/edit/:id', isAuthenticated, isAdmin, async (req, res) => {
+    const skill = await Skill.findById(req.params.id);
+    res.render('admin_skills_edit', { skill, user: req.user, activePage: 'admin' });
+});
+app.put('/admin/skills/edit/:id', isAuthenticated, isAdmin, async (req, res) => {
+    await Skill.findByIdAndUpdate(req.params.id, { name: req.body.name, level: req.body.level, category: req.body.category });
+    res.redirect('/admin/skills');
+});
+app.delete('/admin/skills/delete/:id', isAuthenticated, isAdmin, async (req, res) => {
+    await Skill.findByIdAndDelete(req.params.id);
+    res.redirect('/admin/skills');
+});
 
 // =================================================================
 // 7. START THE SERVER

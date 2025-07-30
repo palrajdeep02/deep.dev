@@ -294,13 +294,25 @@ input:focus, textarea:focus {
 /* =================================
    COLORFUL SKILL CARDS
    ================================= */
+
 .skill-card {
     display: flex;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 1.5rem;
+    gap: 1rem; /* Space between logo and text */
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease !important;
 }
+
+.skill-card i {
+    font-size: 2.5rem; /* Size of the logo */
+}
+
+.skill-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
 .skill-card h3 { margin: 0; font-size: 1.1rem; }
 .skill-card[data-skill-name="java"] { background: #f89820; color: white; }
 .skill-card[data-skill-name="python"] { background: #3776ab; color: white; }
